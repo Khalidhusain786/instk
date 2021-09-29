@@ -43,14 +43,14 @@ fi
 
 banner() {
 
-printf "\e[1;92m     _                                   _             _  _           \e[0m\n"
+printf "\e[1;92m     _               Khalid Husain                    _ _  _           \e[0m\n"
 printf "\e[1;92m _  | |                _                | |           | || |          \e[0m\n"
 printf "\e[1;92m( \ | | ____    ___  _| |_  _____   ___ | |__   _____ | || |          \e[0m\n"
 printf "\e[1;92m ) )| ||  _ \  /___)(_   _)(____ | /___)|  _ \ | ___ || || |          \e[0m\n"
 printf "\e[1;77m(_/ | || | | ||___ |  | |_ / ___ ||___ || | | || ____|| || |  _____   \e[0m\n"
 printf "\e[1;77m    |_||_| |_|(___/    \__)\_____|(___/ |_| |_||_____) \_)\_)(_____)  \e[0m\n"
 printf "\n"
-printf "\e[1;77m\e[45m  Don't Jugde anyone} Khalid Husain (Khalid)  \e[0m\n"
+printf "\e[1;77m\e[45m  Expectations is always heart so Dont't trust anyone           \e[0m\n"
 printf "\n"
 }
 
@@ -206,7 +206,7 @@ let token++
 let token--
 changeip
 done
-exit 1
+exit 
 }
 
 case "$1" in --resume) resume ;; *)
