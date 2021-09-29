@@ -43,6 +43,8 @@ fi
 
 banner() {
 
+
+
 printf "\e[1;92m     _               Khalid Husain                    _ _  _           \e[0m\n"
 printf "\e[1;92m _  | |                _                | |           | || |          \e[0m\n"
 printf "\e[1;92m( \ | | ____    ___  _| |_  _____   ___ | |__   _____ | || |          \e[0m\n"
