@@ -17,4 +17,4 @@ service tor start
 
 ./install.sh
 
-sudo ./instabshell
+./instabshell
