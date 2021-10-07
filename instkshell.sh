@@ -43,11 +43,12 @@ fi
 
 banner() {
 
+
+
 printf "\e[1;92m         ░█─▄▀ █──█ █▀▀█ █── ─▀─ █▀▀▄ 　 ░█─░█ █──█ █▀▀ █▀▀█ ─▀─ █▀▀▄    \e[0m\n"
 printf "\e[1;92m         ░█▀▄─ █▀▀█ █▄▄█ █── ▀█▀ █──█ 　 ░█▀▀█ █──█ ▀▀█ █▄▄█ ▀█▀ █──█    \e[0m\n"
 printf "\e[1;92m         ░█─░█ ▀──▀ ▀──▀ ▀▀▀ ▀▀▀ ▀▀▀─ 　 ░█─░█ ─▀▀▀ ▀▀▀ ▀──▀ ▀▀▀ ▀──▀    \e[0m\n"
-printf "\e[1;92m                                                                         \e[0m\n"
-printf "\e[1;77m\e[45m  EXPECTATIONS IS ALWAYS HEART,SO BE CAREFUL     {𝙆𝙝𝙖𝙡𝙞𝙙 𝙃𝙪𝙨𝙖𝙞𝙣}  \e[0m\n"                                                          
+printf "\e[1;77m\e[45m  EXPECTATIONS IS ALWAYS HEART,SO BE CAREFUL {{𝙆𝙝𝙖𝙡𝙞𝙙 𝙃𝙪𝙨𝙖𝙞𝙣}}  \e[0m\n"                                                          
   printf "\n"
 }
 
