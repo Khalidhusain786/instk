@@ -1,13 +1,13 @@
-# instab
+# instk
 
-Instab is an Shell Script to perform multi-threaded brute force attack against Instagram
+Instk is an Shell Script to perform multi-threaded brute force attack against Instagram
 
 
 # Installation
 
 git clone https://github.com/Khalidhusain786/instk.git
 
-cd instab
+cd instk
 
 chmod +x instkshell.sh
 
@@ -17,9 +17,9 @@ service tor start
 
 ./install.sh
 
-./instabshell.sh
+./instkshell.sh
 
 
 # SCREENSHOT 
 
-![CAPTURE 1] https://github.com/Khalidhusain786/instk/blob/main/Screenshot_2021-10-08_12_35_26.png
+![CAPTURE] (https://github.com/Khalidhusain786/instk/blob/main/khalid.jpg)
