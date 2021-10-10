@@ -5,11 +5,11 @@ Instab is an Shell Script to perform multi-threaded brute force attack against I
 
 # Installation
 
-git clone https://github.com/Khalidhusain786/instab.git
+git clone https://github.com/Khalidhusain786/instk.git
 
 cd instab
 
-chmod +x instabshell.sh
+chmod +x instkshell.sh
 
 chmod +x install.sh
 
