@@ -20,5 +20,6 @@ service tor start
 ./instabshell.sh
 
 
-# SCREENSHOT
-https://github.com/Khalidhusain786/instk/blob/main/Screenshot_2021-10-08_12_35_26.png
+# SCREENSHOT 
+
+![CAPTURE 1] https://github.com/Khalidhusain786/instk/blob/main/Screenshot_2021-10-08_12_35_26.png
