@@ -17,7 +17,7 @@ service tor start
 
 ./install.sh
 
-./instkshell.sh
+bash instkshell.sh
 
 
 # SCREENSHOT 
