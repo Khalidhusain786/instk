@@ -22,4 +22,4 @@ bash instkshell.sh
 
 # SCREENSHOT 
 
-! [CAPTURE] (https://github.com/Khalidhusain786/instk/blob/main/khalid.jpg)
+! [CAPTURE] (https://github.com/Khalidhusain786/instk/blob/main/khalid.jpg).
